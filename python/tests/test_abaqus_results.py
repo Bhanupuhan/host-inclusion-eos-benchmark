@@ -14,7 +14,7 @@ def test_total_form_vs_eosfit(case):
     assert abs(p - EOSFIT) / EOSFIT < TOL, (case, p, EOSFIT)
 
 
-def test_total_form_path_independent():
+def test_recorded_total_form_cases_agree():
     ps = [float(AB[c]['P_inc_ip']) for c in ('total_A', 'total_B', 'total_C')]
     assert max(ps) - min(ps) < 1e-4
 
@@ -28,7 +28,7 @@ def test_elastic_vs_lame():
     assert abs(p - lame) / lame < TOL, (p, lame)
 
 
-def test_legacy_umat_is_path_dependent():
-    # documents why the legacy UMAT was superseded: the two paths differ by far more than the tolerance
+def test_recorded_legacy_cases_differ():
+    # Checks the recorded discrepancy only, not its cause or convergence with increment refinement.
     a, b = float(AB['legacy_no_trap']['P_inc_ip']), float(AB['legacy_trap']['P_inc_ip'])
     assert abs(a - b) / b > 10 * TOL

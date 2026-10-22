@@ -7,7 +7,7 @@
 !     sigma = -P_EoS(V, T) I + 2 G dev(eps),     V = V_ref * exp(tr eps),   G constant
 ! where eps is the total strain measured from the reference state (P_ref, T_ref) at which the analysis
 ! starts (the entrapment state, set in the input with *Initial Conditions, type=STRESS / TEMPERATURE).
-! Because sigma depends only on (eps, T), the final state does not depend on the P-T path.
+! At fixed (eps, T), stress is independent of increment history. Global equilibrium still requires convergence.
 ! Checked in Abaqus for the 3D sphere (abaqus/inputs/sphere.inp, built by scripts/make_total.py):
 !   A one step without trapping step, B trapping step + 100 increments, C trapping step + 1 increment
 !   -> P_inc = 0.8409 GPa in all three (EosFit, non-linear isotropic: 0.842 GPa).
@@ -28,7 +28,7 @@
 !   olivine (constants=11): G, 2, K0, K', V0, thetaD, n, gamma0, q, P_ref, T_ref
 !   G, K0, P_ref in TPa (as the other model inputs); alpha0 in 1/K; V0 in cm3/mol; temperatures in K.
 ! STATEV: (1) P (TPa)  (2) T (K)  (3) V/V0.   *Depvar 3 (or 2: then only 1,2 are written).
-! NOT done: SSE/SPD/SCD are not computed; DDSDDT and RPL are left at zero (no coupled heat transfer);
+! NOT done: SSE/SPD/SCD, DDSDDT, RPL, DRPLDE and DRPLDT are not assigned (no coupled heat transfer);
 ! P is not clipped; the EoS is evaluated at any V (no range check). G is constant (no P or T dependence).
 ! K_T in DDSDDE is a central finite difference of P_EoS (relative step 1e-6).
 ! =====================================================================================================
@@ -141,8 +141,8 @@ subroutine UMAT(STRESS,STATEV,DDSDDE,SSE,SPD,SCD, &
     tref = PROPS(NPROPS)
 
     ! reference volume (cached per mineral; recomputed only if P_ref/T_ref change)
-    ! (thread safe in practice: a thread that finds no valid cache computes x0 itself; all threads compute
-    !  the identical value, so a concurrent write cannot give a wrong number)
+    ! Thread safety is not validated. Cache does not include the complete EoS parameter set.
+    ! Use one parameter set per mineral and serial execution for initial verification.
     x0 = xref_c(id)
     if (pref .ne. pref_c(id) .or. tref .ne. tref_c(id) .or. x0 .le. 0.d0) then
         x0 = xref_of(id, pref, tref, PROPS)

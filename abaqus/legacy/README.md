@@ -28,9 +28,10 @@ Other properties:
 
 ## Why it was replaced
 
-1. **Path dependent.** On the 3D sphere (`../inputs/sphere.inp`) it gives P_inc = **0.8577 GPa** without
+1. **Trapping-step discrepancy.** On the 3D sphere (`../inputs/sphere.inp`) it gives P_inc = **0.8577 GPa** without
    the trapping step and **0.7803 GPa** with it (EosFit 0.842).
-   A material law whose result depends on the load path cannot reproduce EosFit, which uses only the end state.
+   These recorded results differ. Establishing the cause requires checking equivalent initial states and
+   increment convergence; the two values alone do not prove intrinsic material path dependence.
 2. **It is not the EosFit EoS:**
    - Murnaghan K(P) instead of BM3;
    - no thermal pressure;
@@ -67,7 +68,7 @@ There are two separate defects:
 
 - Header rewritten to describe what the code does; marked SUPERSEDED.
 - "BM3 + Holland-Powell", "BM3 + Mie-Gruneisen-Debye" and "EXACT EoS" corrected to the laws actually used.
-- "G constant (path-independence requirement)" corrected: the law is path and increment dependent.
+- "G constant (path-independence requirement)" corrected: constant G alone does not establish path independence.
 - GPa → TPa in the PROPS, STATEV and G comments.
 - The "Convert GPa to Abaqus units … adjust as needed" comment replaced: no conversion is done.
 - The "integrates alpha(T)dT correctly" comment corrected: explicit, increment dependent.

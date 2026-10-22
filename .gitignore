@@ -1,0 +1,26 @@
+# Abaqus job files
+*.odb
+*.lck
+*.com
+*.prt
+*.sim
+*.sta
+*.msg
+*.res
+*.mdl
+*.stt
+*.ipm
+*.log
+*.023
+*.abq
+*.pac
+*.sel
+*.fil
+*.obj
+*.o
+*.so
+*.dll
+*.mod
+abaqus/work/
+__pycache__/
+.pytest_cache/

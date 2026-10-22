@@ -10,7 +10,10 @@ The stress is computed from the total strain and the current temperature, never 
 - V_ref = V(P_ref, T_ref) is found by Newton iteration on P_EoS(V, T_ref) = P_ref. It is cached per mineral.
 - P_ref = 0.0055 TPa and T_ref = 1473.15 K are the last two `*User Material` constants.
 
-Because σ depends only on (ε, T), the end state cannot depend on the load path.
+At a prescribed (ε, T), this material stress evaluation has no increment-history dependence.
+For the boundary-value problem, equality of final solutions also requires convergence to
+the same equilibrium branch. The recorded A/B/C runs are a limited numerical check, not
+a proof for arbitrary loading or geometry.
 
 ## EoS
 
@@ -34,13 +37,20 @@ DDSDDE uses λ = K_T − 2G/3 and μ = G.
 - No range check on the EoS.
 - SSE is not computed.
 
-## Related literature (for the authors to confirm before publishing)
+## Implementation scope
 
-Moulas et al. (2023) state that non-linear elastic implementations for host–inclusion systems "have to be
-thermodynamically consistent and have to guarantee the path-independence of the results". They also show how
-incremental schemes converge with the path resolution (number of path increments). The total form used here
-gives path- and increment-independent results by construction.
+The reference-volume cache is keyed by mineral id and reference pressure/temperature,
+not by the complete EoS parameter set. Use only one parameter set per mineral in a run.
+The shared mutable cache has not been validated for threaded execution; the existing
+source comment is not evidence of thread safety. Use a serial run for initial verification.
 
-- Moulas E., Podladchikov Y., Zingerman K., Vershinin A., Levin V. (2023). Large-strain elastic and elasto-plastic
-  formulations for host–inclusion systems and their applications in thermobarometry and geodynamics.
-  *American Journal of Science* 323.
+The UMAT targets the supplied 3D inputs, not a general plane-stress implementation.
+The standalone compiler tests do not establish Abaqus ABI or solver compatibility.
+Thermal coupling outputs are not assigned by the routine; it is intended for prescribed
+temperature mechanical analyses, not coupled heat-transfer simulations.
+
+## Literature comparison
+
+A comparison with Moulas et al. (2023) remains for author review. No claim about that
+paper's implementation is made here. The legacy increment-size test concerns only the
+legacy source included in this repository.

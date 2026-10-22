@@ -1,6 +1,6 @@
 # host-inclusion-eos-benchmark
 
-Verification of a non-linear, thermally consistent equation-of-state (EoS) material law for host–inclusion
+Benchmarks for a non-linear, state-based equation-of-state (EoS) material law for host–inclusion
 elastic geobarometry in Abaqus, against EosFit.
 
 **Benchmark.**
@@ -13,6 +13,11 @@ Authors: Biswabhanu Puhan (University of Pavia), Mattia Mazzucchelli (University
 
 ## Results
 
+Development snapshot: Abaqus values below are author-reported. Raw extraction reports,
+volume-weighted results and software versions remain pending; these simulations have not
+been independently rerun for this repository. Python tests check the recorded values and
+material calculations, rather than reproduce the full Abaqus model.
+
 All runs use the same mesh: 1/8 model, 80 000 C3D8I + 6 974 C3D10 elements.
 
 | Method | P_inc (GPa) | vs EosFit | Notes |
@@ -21,7 +26,7 @@ All runs use the same mesh: 1/8 model, 80 000 C3D8I + 6 974 C3D10 elements.
 | Abaqus `*Elastic`, prestress relaxation (`sphere_prestress.inp`) | 0.8468 | +0.57 % | linear elastic route |
 | Analytical elastic sphere (Lamé), same moduli and prestress | 0.8466 | +0.55 % | independent analytical check of the row above (`hostinc.lame`) |
 | Abaqus, legacy incremental UMAT, no trapping step | 0.8577 | +1.9 % | superseded |
-| Abaqus, legacy incremental UMAT, with trapping step | 0.7803 | −7.3 % | superseded (path dependent) |
+| Abaqus, legacy incremental UMAT, with trapping step | 0.7803 | −7.3 % | superseded; trapping-step discrepancy unresolved |
 | **Abaqus, total-form EoS UMAT** (A: no trap, B: trap + 100 increments, C: trap + 1 increment) | **0.8409** (A = B = C) | **−0.13 %** | `umat_eos_total.f90` |
 | Python EoS, P_thermo only (`hostinc.eos.p_thermo`) | P_thermo 0.9957 | −0.03 % vs 0.996 | |
 
@@ -107,7 +112,9 @@ them are in `reference/eosfit_reference.json`.
 
 ## Changelog: changes made to the authors' files for this repository
 
-No physics, parameters or numerical values were changed.
+No executable material code, model parameters or recorded numerical values were changed.
+Repository review also narrows path-independence claims and records the unvalidated cache
+and parallel-execution limitations in the formulation notes.
 
 **`abaqus/umat_eos_total.f90`** (comments only, code unchanged):
 - author line added;
