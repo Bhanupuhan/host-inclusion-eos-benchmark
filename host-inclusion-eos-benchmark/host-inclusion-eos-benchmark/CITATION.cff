@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite it as below."
+title: "host-inclusion-eos-benchmark: Abaqus and Python verification of host-inclusion equations of state against EosFit"
+authors:
+  - family-names: Puhan
+    given-names: Biswabhanu
+    affiliation: "University of Pavia, Department of Earth and Environmental Sciences"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"   # TODO
+  - family-names: Mazzucchelli
+    given-names: Mattia
+    affiliation: "University of Lausanne"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"   # TODO
+version: "0.1.0"
+# license: TODO (placeholder, see LICENSE)
+# repository-code: TODO (GitHub URL)
+references:
+  - type: article
+    authors:
+      - family-names: Angel
+        given-names: Ross J.
+      - family-names: Alvaro
+        given-names: Matteo
+      - family-names: Nestola
+        given-names: Fabrizio
+    title: "40 years of mineral elasticity: a critical review and a new parameterisation of equations of state for mantle olivines and diamond inclusions"
+    journal: "Physics and Chemistry of Minerals"
+    volume: 45
+    start: 95
+    end: 113
+    year: 2018
+    doi: "10.1007/s00269-017-0900-7"
+  - type: article
+    authors:
+      - family-names: Angel
+        given-names: Ross J.
+      - family-names: Alvaro
+        given-names: Matteo
+      - family-names: Nestola
+        given-names: Fabrizio
+      - family-names: Mazzucchelli
+        given-names: Mattia L.
+    title: "Diamond thermoelastic properties and implications for determining the pressure of formation of diamond-inclusion systems"
+    journal: "Russian Geology and Geophysics"
+    volume: 56
+    start: 211
+    end: 220
+    year: 2015
+    doi: "10.1016/j.rgg.2015.01.014"

@@ -1,0 +1,15 @@
+{
+  "_comment": "EosFit reference values for the benchmark, as printed by the authors' MATLAB EosFitm/MinCryst run (script not included; see reference/README.md). Pressures in GPa, moduli in GPa, alpha in 1/K.",
+  "system": {"inclusion": "olivine_angel2018", "host": "diamond_angel2015", "database_id": "220106122425",
+             "shape": "sphere (a = b = c = 1)",
+             "entrapment": {"P_GPa": 5.5, "T_K": 1473.15}, "final": {"P_GPa": 0.0, "T_K": 298.0}},
+  "software": {"name": "EosFitm via MinCryst", "version": "0.2.3 (as printed in the output; CONFIRM)"},
+  "results": {
+    "non_linear_isotropic": {"P_thermo_GPa": 0.996, "P_inc_GPa": 0.842},
+    "linear":               {"P_thermo_GPa": 0.421, "P_inc_GPa": 0.357}
+  },
+  "room_elastic_properties": {
+    "host":      {"E_GPa": 1139.10, "nu": 0.07241, "alpha_per_K": 0.26610e-5},
+    "inclusion": {"E_GPa": 189.58,  "nu": 0.24984, "alpha_per_K": 2.63380e-5}
+  }
+}
