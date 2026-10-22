@@ -5,13 +5,9 @@ authors:
   - family-names: Puhan
     given-names: Biswabhanu
     affiliation: "University of Pavia, Department of Earth and Environmental Sciences"
-    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"   # TODO
-  - family-names: Mazzucchelli
-    given-names: Mattia
-    affiliation: "University of Lausanne"
-    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"   # TODO
+    orcid: "https://orcid.org/0009-0009-3468-7975"
 version: "0.1.0"
-# license: TODO (placeholder, see LICENSE)
+# license: none yet (all rights reserved, see LICENSE)
 repository-code: "https://github.com/Bhanupuhan/host-inclusion-eos-benchmark"
 references:
   - type: article

@@ -9,7 +9,7 @@ elastic geobarometry in Abaqus, against EosFit.
 - Dry, no fracture.
 - Reference residual inclusion pressure (EosFit, non-linear isotropic): **P_inc = 0.842 GPa**.
 
-Authors: Biswabhanu Puhan (University of Pavia), Mattia Mazzucchelli (University of Lausanne).
+Author: Biswabhanu Puhan (University of Pavia).
 
 ## Results
 
@@ -48,7 +48,7 @@ abaqus/
   run_total.cmd, run_elastic.cmd   Windows run scripts (results in abaqus/work/)
 python/
   hostinc/                  EoS (eos.py), Lamé check (lame.py), result reader (results.py)
-  hostinc/fem/, hostinc/fdm/   PLACEHOLDERS for M. Mazzucchelli's Python FEM and finite-difference solver
+  hostinc/fem/, hostinc/fdm/   placeholders for planned Python FEM and finite-difference solvers
   tests/                    pytest: EoS consistency, vs EosFit (0.5 %), recorded Abaqus results, Fortran vs Python,
                             increment-size independence of the total-form UMAT
 reference/                  EosFit reference values, Abaqus result table, supplied pressure reports
@@ -65,9 +65,9 @@ docs/                       trapping step; total-form formulation
 
 ## Requirements
 
-- Abaqus/Standard ______ (TODO: version used for the runs; the inputs were generated with Abaqus/CAE 2020),
-  with user subroutines enabled.
-- Fortran compiler ______ (TODO: the one used with Abaqus). The UMAT is free-form Fortran 90.
+- Abaqus/Standard with user subroutines enabled (inputs generated with Abaqus/CAE 2020; solver version used for the
+  reported runs not recorded).
+- A Fortran compiler supported by your Abaqus version. The UMAT is free-form Fortran 90.
 - Python 3 for the input builders (`py -3` on Windows); Abaqus Python for `sphere_pinc.py`.
 - Tests: Python ≥ 3.8 with numpy, scipy and pytest (`python/requirements.txt`). gfortran is optional; without
   it the Fortran-vs-Python test is skipped.
@@ -90,8 +90,8 @@ pytest -q tests
 
 ## Placeholders
 
-- `python/hostinc/fem/` — Python FEM solver (Mattia Mazzucchelli). **Not included yet.**
-- `python/hostinc/fdm/` — finite-difference solver (Mattia Mazzucchelli). **Not included yet.**
+- `python/hostinc/fem/` — planned Python FEM solver for the same benchmark. **Not included yet.**
+- `python/hostinc/fdm/` — planned finite-difference solver for the same benchmark. **Not included yet.**
 - `reference/raw/` — supplied pressure-report transcriptions are included; original-file provenance is described there.
 
 ## EosFit reference
@@ -101,11 +101,11 @@ The reference values come from EosFit with:
 - a spherical inclusion;
 - entrapment at 5.5 GPa / 1473.15 K, final state 0 GPa / 298 K.
 
-They were run through the authors' MATLAB script, which calls EosFitm via MinCryst (version: TODO). The script
-is **not included** until its authors agree. The values and the room-condition elastic properties printed with
+They were computed with a MATLAB workflow that calls EosFitm via MinCryst (version not recorded); the script is
+**not included**. EosFit-Pinc (Angel et al. 2017) reproduces the same calculation. The values and the room-condition elastic properties printed with
 them are in `reference/eosfit_reference.json`.
 
-## Changelog: changes made to the authors' files for this repository
+## Changelog: changes made to the original files for this repository
 
 An earlier incremental (hypoelastic) EoS UMAT, which combined K = K0 + K′P with a separately computed,
 pressure-dependent α, is not included: those two coefficients do not derive from one EoS, so its result
@@ -143,6 +143,10 @@ and parallel-execution limitations in the formulation notes.
 The A/B/C inputs built from the new `sphere.inp` differ from those used for the reported runs only in
 the three input changes above (Amp-2, line split, IVOL). This was checked by diff.
 
+## Acknowledgements
+
+I thank Mattia Mazzucchelli (University of Lausanne) for suggesting a multi-method host–inclusion benchmark.
+
 ## References
 
 - Angel R.J., Alvaro M., Nestola F. (2018). 40 years of mineral elasticity: a critical review and a new
@@ -151,6 +155,8 @@ the three input changes above (Amp-2, line split, IVOL). This was checked by dif
 - Angel R.J., Alvaro M., Nestola F., Mazzucchelli M.L. (2015). Diamond thermoelastic properties and implications
   for determining the pressure of formation of diamond–inclusion systems. *Russian Geology and Geophysics* 56,
   211–220. https://doi.org/10.1016/j.rgg.2015.01.014
+- Angel R.J., Mazzucchelli M.L., Alvaro M., Nestola F. (2017). EosFit-Pinc: A simple GUI for host-inclusion elastic
+  thermobarometry. *American Mineralogist* 102, 1957–1960. https://doi.org/10.2138/am-2017-6190
 
 ## Licence
 

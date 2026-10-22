@@ -6,7 +6,7 @@
 - `abaqus_results.csv`: Abaqus results reported in the README.
 - `raw/`: pressure-extraction output supplied as text by the author; provenance and pending information are documented in `raw/PENDING.md`.
 
-The MATLAB script that produced the EosFit values (it calls EosFitm through MinCryst) is **not included**
-until its authors agree. It is referenced in the main README. To reproduce the EosFit values, use
+The MATLAB workflow that produced the EosFit values (it calls EosFitm through MinCryst) is **not included**.
+It is described in the main README. To reproduce the EosFit values, use
 EosFit with the EoS files `olivine_angel2018` and `diamond_angel2015`, entrapment 5.5 GPa / 1473.15 K,
 final 0 GPa / 298 K, spherical inclusion.

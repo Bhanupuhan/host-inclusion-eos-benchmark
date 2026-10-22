@@ -1,5 +1,5 @@
 {
-  "_comment": "EosFit reference values for the benchmark, as printed by the authors' MATLAB EosFitm/MinCryst run (script not included; see reference/README.md). Pressures in GPa, moduli in GPa, alpha in 1/K.",
+  "_comment": "EosFit reference values for the benchmark, as printed by a MATLAB EosFitm/MinCryst run (script not included; see reference/README.md). Pressures in GPa, moduli in GPa, alpha in 1/K.",
   "system": {"inclusion": "olivine_angel2018", "host": "diamond_angel2015", "database_id": "220106122425",
              "shape": "sphere (a = b = c = 1)",
              "entrapment": {"P_GPa": 5.5, "T_K": 1473.15}, "final": {"P_GPa": 0.0, "T_K": 298.0}},
