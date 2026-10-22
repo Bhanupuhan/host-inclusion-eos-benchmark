@@ -1,4 +1,4 @@
-"""Shared helpers for make_trap.py and make_total.py (input builders; the source .inp is never modified)."""
+"""Shared helpers for make_total.py (input builders; the source .inp is never modified)."""
 import re
 from pathlib import Path
 

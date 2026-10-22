@@ -27,8 +27,3 @@ def test_elastic_vs_lame():
     p = float(AB['elastic_prestress']['P_inc_ip'])
     assert abs(p - lame) / lame < TOL, (p, lame)
 
-
-def test_recorded_legacy_cases_differ():
-    # Checks the recorded discrepancy only, not its cause or convergence with increment refinement.
-    a, b = float(AB['legacy_no_trap']['P_inc_ip']), float(AB['legacy_trap']['P_inc_ip'])
-    assert abs(a - b) / b > 10 * TOL

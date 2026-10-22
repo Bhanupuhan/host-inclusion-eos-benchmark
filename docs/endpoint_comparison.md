@@ -16,5 +16,3 @@ The Eq. (3) comparison evaluates the published equation with the repository para
 The total-form UMAT evaluates stress from current strain and temperature and still requires nonlinear equilibrium iterations. Its A/B/C outputs agree at the supplied four-decimal precision; they do not prove arbitrary-path agreement.
 
 The `*Elastic` prestress model is a separate linear relaxation problem, beginning with inclusion pressure 0.997681 GPa and an unstressed host. Its 0.8468 GPa result should first be compared with its matching Lame solution (0.8466 GPa).
-
-The legacy UMAT gives 0.8577 versus 0.7803 GPa across two step setups. The reports alone do not isolate initialisation, strain history or integration error. This discrepancy is unrelated to any test of Moulas's code. No claim of a defect in that work follows from it.

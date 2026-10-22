@@ -1,5 +1,5 @@
 *Heading
-** sphere.inp (originally spheroid.inp). EoS UMAT input: legacy UMAT as is;
+** sphere.inp (originally spheroid.inp). EoS UMAT base input;
 ** the total-form UMAT inputs are made from this file by scripts/make_total.py.
 ** sphere benchmark: olivine sphere (r = 10 um) in diamond. 1/8 model: 500 x 500 x 500 um host block,
 **   sphere centred at the corner (-250, -250, 0); symmetry BCs on node sets x, y, z.
@@ -188528,7 +188528,7 @@ united-1.all, -55e-04, -55e-04, -55e-04, 0., 0., 0.
 united-1.all, 1473.15 
 ** Name: statev Type: Solution     
 *Initial Conditions, type=SOLUTION  
-** SDV1 = P (TPa), SDV2 = T (K) at entrapment (read by the legacy UMAT)
+** SDV1 = P (TPa), SDV2 = T (K) at entrapment (initial state variables)
 united-1.all, 0.0055, 1473.15      
 ** ----------------------------------------------------------------
 ** 

@@ -52,5 +52,4 @@ temperature mechanical analyses, not coupled heat-transfer simulations.
 ## Literature comparison
 
 A comparison with Moulas et al. (2023) remains for author review. No claim about that
-paper's implementation is made here. The legacy increment-size test concerns only the
-legacy source included in this repository.
+paper's implementation is made here.

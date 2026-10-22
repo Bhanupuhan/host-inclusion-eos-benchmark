@@ -1,7 +1,6 @@
-"""Increment-size dependence: one material point, all strain components fixed at 0 (fully constrained),
+"""Increment-size independence: one material point, all strain components fixed at 0 (fully constrained),
 cooled from the entrapment state (5.5 GPa, 1473.15 K) to 298 K in N equal increments.
-  legacy UMAT (explicit, K and alpha at the start of the increment): the end pressure depends on N
-  total-form UMAT: the end pressure is the same for any N and equals the Python EoS
+The total-form UMAT must give the same end pressure for any N, equal to the Python EoS
 Needs gfortran (skipped otherwise). The ABA_PARAM.INC written here is a two-line stand-in, not the Abaqus file."""
 import os
 import shutil
@@ -40,10 +39,9 @@ def exes(tmp_path_factory):
     (d / 'drv.f90').write_text(DRIVER)
     (d / 'ABA_PARAM.INC').write_text('      IMPLICIT REAL*8(A-H,O-Z)\n      PARAMETER (NPRECD=2)\n')
     (d / 'xit.f90').write_text("subroutine XIT\n  stop 'XIT'\nend subroutine\n")
-    leg = os.path.join(ROOT, 'abaqus', 'legacy', 'umat_eos_olivine_diamond.f')
     tot = os.path.join(ROOT, 'abaqus', 'umat_eos_total.f90')
     out = {}
-    for name, src in (('legacy', leg), ('total', tot)):
+    for name, src in (('total', tot),):
         if not os.path.exists(src):
             pytest.skip('missing ' + src)
         exe = str(d / name)
@@ -54,15 +52,9 @@ def exes(tmp_path_factory):
 
 
 def run(exe, m, n):
-    np_ = {('legacy', 1): 8, ('legacy', 2): 9, ('total', 1): 10, ('total', 2): 11}[(os.path.basename(exe), m)]
+    np_ = {('total', 1): 10, ('total', 2): 11}[(os.path.basename(exe), m)]
     return float(subprocess.run([exe], input='%d %d %d\n' % (m, np_, n), capture_output=True, text=True,
                                 check=True).stdout.split()[0])
-
-
-@pytest.mark.parametrize('m', [1, 2], ids=['diamond', 'olivine'])
-def test_legacy_depends_on_increments(exes, m):
-    p10, p1000 = run(exes['legacy'], m, 10), run(exes['legacy'], m, 1000)
-    assert abs(p10 - p1000) > 0.01 * abs(p1000)
 
 
 @pytest.mark.parametrize('m,mineral', [(1, Diamond()), (2, Olivine())], ids=['diamond', 'olivine'])

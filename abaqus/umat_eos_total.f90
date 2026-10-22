@@ -2,7 +2,7 @@
 ! UMAT  umat_eos_total.f90  -  TOTAL-FORM equation of state for olivine-in-diamond (path independent)
 ! Author: Biswabhanu Puhan.  Part of host-inclusion-eos-benchmark (see README.md, CHANGELOG section).
 !
-! Replaces the incremental (hypoelastic) legacy/umat_eos_olivine_diamond.f.  Stress is computed from the TOTAL
+! Replaces an earlier incremental (hypoelastic) UMAT (not included).  Stress is computed from the TOTAL
 ! strain and the CURRENT temperature, never by adding increments:
 !     sigma = -P_EoS(V, T) I + 2 G dev(eps),     V = V_ref * exp(tr eps),   G constant
 ! where eps is the total strain measured from the reference state (P_ref, T_ref) at which the analysis

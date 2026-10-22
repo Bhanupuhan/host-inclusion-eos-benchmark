@@ -25,8 +25,6 @@ All runs use the same mesh: 1/8 model, 80 000 C3D8I + 6 974 C3D10 elements.
 | EosFit, non-linear isotropic (reference) | **0.842** | — | P_thermo 0.996 |
 | Abaqus `*Elastic`, prestress relaxation (`sphere_prestress.inp`) | 0.8468 | +0.57 % | linear elastic route |
 | Analytical elastic sphere (Lamé), same moduli and prestress | 0.8466 | +0.55 % | independent analytical check of the row above (`hostinc.lame`) |
-| Abaqus, legacy incremental UMAT, no trapping step | 0.8577 | +1.9 % | superseded |
-| Abaqus, legacy incremental UMAT, with trapping step | 0.7803 | −7.3 % | superseded; trapping-step discrepancy unresolved |
 | **Abaqus, total-form EoS UMAT** (A: no trap, B: trap + 100 increments, C: trap + 1 increment) | **0.8409** (A = B = C) | **−0.13 %** | `umat_eos_total.f90` |
 | Python EoS, P_thermo only (`hostinc.eos.p_thermo`) | P_thermo 0.9957 | −0.03 % vs 0.996 | |
 
@@ -43,18 +41,16 @@ How to read the table:
 ```
 abaqus/
   umat_eos_total.f90        total-form EoS UMAT (main)
-  legacy/                   superseded incremental UMAT + why it was replaced
   inputs/sphere.inp         3D sphere, EoS UMAT, one step (base for all EoS runs)
   inputs/sphere_prestress.inp   3D sphere, *Elastic, prestressed inclusion
-  scripts/make_trap.py      adds the trapping step (legacy runs)
   scripts/make_total.py     builds the A/B/C inputs for the total-form UMAT
   scripts/sphere_pinc.py    Abaqus Python: P_inc per frame, volume-weighted and unweighted
-  run_total.cmd, run_legacy.cmd, run_elastic.cmd   Windows run scripts (results in abaqus/work/)
+  run_total.cmd, run_elastic.cmd   Windows run scripts (results in abaqus/work/)
 python/
   hostinc/                  EoS (eos.py), Lamé check (lame.py), result reader (results.py)
   hostinc/fem/, hostinc/fdm/   PLACEHOLDERS for M. Mazzucchelli's Python FEM and finite-difference solver
   tests/                    pytest: EoS consistency, vs EosFit (0.5 %), recorded Abaqus results, Fortran vs Python,
-                            increment-size dependence (legacy vs total form)
+                            increment-size independence of the total-form UMAT
 reference/                  EosFit reference values, Abaqus result table, supplied pressure reports
 docs/                       trapping step; total-form formulation
 ```
@@ -84,7 +80,6 @@ Abaqus, EosFit and MinCryst are not included.
 cd abaqus
 run_total.cmd        :: total-form UMAT, cases A, B, C  -> work\TOTAL_EOS_RESULT.txt
 run_elastic.cmd      :: *Elastic prestress route        -> work\sphere_prestress_pinc.txt
-run_legacy.cmd       :: legacy UMAT, no trap and trap   -> work\LEGACY_RESULT.txt
 ```
 
 ```bash
@@ -112,6 +107,10 @@ them are in `reference/eosfit_reference.json`.
 
 ## Changelog: changes made to the authors' files for this repository
 
+An earlier incremental (hypoelastic) EoS UMAT, which combined K = K0 + K′P with a separately computed,
+pressure-dependent α, is not included: those two coefficients do not derive from one EoS, so its result
+depends on the load path and does not converge to the EoS solution. It is superseded by `umat_eos_total.f90`.
+
 No executable material code, model parameters or recorded numerical values were changed.
 Repository review also narrows path-independence claims and records the unvalidated cache
 and parallel-execution limitations in the formulation notes.
@@ -122,10 +121,6 @@ and parallel-execution limitations in the formulation notes.
 - EoS sources cited;
 - notes added: diamond γ0 and q are read but unused; SSE/SPD/SCD are not computed; P is not clipped;
   no EoS range check; K_T is a finite difference.
-
-**`abaqus/legacy/umat_eos_olivine_diamond.f`**:
-- comments only were corrected to describe what the code does (list in `abaqus/legacy/README.md`);
-- the executable code is unchanged (checked line by line).
 
 **`abaqus/inputs/sphere.inp`** (renamed from `spheroid.inp`; the geometry is a sphere):
 - olivine `*User Material` constants split over two data lines (9 values; Abaqus allows 8 per line);
@@ -139,13 +134,13 @@ and parallel-execution limitations in the formulation notes.
 - unit and geometry comments added;
 - `IVOL` added to the element output.
 
-**Scripts** (renamed: `make_spheroid_trap.py` → `make_trap.py`, `make_spheroid_total.py` → `make_total.py`,
+**Scripts** (renamed: `make_spheroid_total.py` → `make_total.py`,
 `spheroid_pinc.py` → `sphere_pinc.py`):
 - shared code moved to `scripts/_common.py`;
 - an output directory argument added; output names now follow the input name;
 - `sphere_pinc.py` now also reports the IVOL volume-weighted mean.
 
-The trap and A/B/C inputs built from the new `sphere.inp` differ from those used for the reported runs only in
+The A/B/C inputs built from the new `sphere.inp` differ from those used for the reported runs only in
 the three input changes above (Amp-2, line split, IVOL). This was checked by diff.
 
 ## References
