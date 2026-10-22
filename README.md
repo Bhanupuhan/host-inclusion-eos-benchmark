@@ -13,8 +13,8 @@ Authors: Biswabhanu Puhan (University of Pavia), Mattia Mazzucchelli (University
 
 ## Results
 
-Development snapshot: Abaqus values below are author-reported. Raw extraction reports,
-volume-weighted results and software versions remain pending; these simulations have not
+Development snapshot: Abaqus values below are author-reported. Pressure-report transcriptions are included in `reference/raw/`.
+Volume-weighted results and software versions remain pending; these simulations have not
 been independently rerun for this repository. Python tests check the recorded values and
 material calculations, rather than reproduce the full Abaqus model.
 
@@ -55,7 +55,7 @@ python/
   hostinc/fem/, hostinc/fdm/   PLACEHOLDERS for M. Mazzucchelli's Python FEM and finite-difference solver
   tests/                    pytest: EoS consistency, vs EosFit (0.5 %), recorded Abaqus results, Fortran vs Python,
                             increment-size dependence (legacy vs total form)
-reference/                  EosFit reference values, Abaqus result table, raw outputs (pending)
+reference/                  EosFit reference values, Abaqus result table, supplied pressure reports
 docs/                       trapping step; total-form formulation
 ```
 
@@ -97,7 +97,7 @@ pytest -q tests
 
 - `python/hostinc/fem/` — Python FEM solver (Mattia Mazzucchelli). **Not included yet.**
 - `python/hostinc/fdm/` — finite-difference solver (Mattia Mazzucchelli). **Not included yet.**
-- `reference/raw/` — raw Abaqus output for each result row.
+- `reference/raw/` — supplied pressure-report transcriptions are included; original-file provenance is described there.
 
 ## EosFit reference
 
@@ -160,3 +160,11 @@ the three input changes above (Amp-2, line split, IVOL). This was checked by dif
 ## Licence
 
 Placeholder: see `LICENSE`. No licence has been granted yet.
+
+## Endpoint comparison
+
+With the repository EoS and constant host shear modulus, Moulas et al. (2023), Eq. (3), gives
+0.840734 GPa for an infinite spherical host, compared with the reported 3D total-form result
+of 0.8409 GPa (about 0.020% difference). This is a calculation using the published equation,
+not a run of the authors' software. See `docs/endpoint_comparison.md` and
+`python/compare_moulas_endpoint.py`.

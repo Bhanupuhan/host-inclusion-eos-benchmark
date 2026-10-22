@@ -1,10 +1,10 @@
 # Abaqus 3D sphere results (GPa). P_inc_ip = unweighted mean over inclusion integration points, last frame
 # (as reported from the original runs). P_inc_vw = IVOL-weighted mean: NOT YET AVAILABLE (rerun needed).
-# raw_output = file in reference/raw/ backing the value (PENDING upload by the authors).
+# raw_output = author-supplied report transcription in reference/raw/; see provenance there.
 case,input,umat,trapping_step,P_inc_ip,P_inc_vw,raw_output
-elastic_prestress,sphere_prestress.inp,none (*Elastic),n/a,0.8468,,PENDING
-legacy_no_trap,sphere.inp,legacy/umat_eos_olivine_diamond.f,no,0.8577,,PENDING
-legacy_trap,sphere_trap.inp,legacy/umat_eos_olivine_diamond.f,yes,0.7803,,PENDING
-total_A,sphere_total_A.inp,umat_eos_total.f90,no,0.8409,,PENDING
-total_B,sphere_total_B.inp,umat_eos_total.f90,yes (100 increments),0.8409,,PENDING
-total_C,sphere_total_C.inp,umat_eos_total.f90,yes (1 increment),0.8409,,PENDING
+elastic_prestress,sphere_prestress.inp,none (*Elastic),n/a,0.8468,,spheroid2_pinc.txt
+legacy_no_trap,sphere.inp,legacy/umat_eos_olivine_diamond.f,no,0.8577,,spheroid_pinc.txt
+legacy_trap,sphere_trap.inp,legacy/umat_eos_olivine_diamond.f,yes,0.7803,,spheroid_trap_pinc.txt
+total_A,sphere_total_A.inp,umat_eos_total.f90,no,0.8409,,spheroid_total_A_pinc.txt
+total_B,sphere_total_B.inp,umat_eos_total.f90,yes (100 increments),0.8409,,spheroid_total_B_pinc.txt
+total_C,sphere_total_C.inp,umat_eos_total.f90,yes (1 increment),0.8409,,spheroid_total_C_pinc.txt

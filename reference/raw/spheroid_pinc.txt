@@ -1,0 +1,4 @@
+spheroid   (GPa; P = -mean stress, simple average over integration points)
+step          t   P_incl | P_host
+Step-1   0.0000   5.5000 |   5.5000
+Step-1   1.0000   0.8577 |   0.0003

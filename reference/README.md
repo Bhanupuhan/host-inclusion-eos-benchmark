@@ -4,7 +4,7 @@
   P_thermo = 0.996 GPa, P_inc = 0.842 GPa), with the system definition and the room-condition elastic
   properties printed in the same output.
 - `abaqus_results.csv`: Abaqus results reported in the README.
-- `raw/`: raw output backing the Abaqus values (pending).
+- `raw/`: pressure-extraction output supplied as text by the author; provenance and pending information are documented in `raw/PENDING.md`.
 
 The MATLAB script that produced the EosFit values (it calls EosFitm through MinCryst) is **not included**
 until its authors agree. It is referenced in the main README. To reproduce the EosFit values, use

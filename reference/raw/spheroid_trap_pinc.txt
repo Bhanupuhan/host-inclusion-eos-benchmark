@@ -1,0 +1,6 @@
+spheroid_trap   (GPa; P = -mean stress, simple average over integration points)
+step          t   P_incl | P_host
+Trap     0.0000   5.5000 |   5.5000
+Trap     1.0000   5.5004 |   5.4999
+Exh      0.0000   5.5004 |   5.4999
+Exh      1.0000   0.7803 |   0.0002

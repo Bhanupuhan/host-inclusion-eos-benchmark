@@ -28,8 +28,10 @@ The trapping step (`abaqus/scripts/make_trap.py`, `make_total.py`) has two parts
 
 - **Path-independent material** (`*Elastic` prestress, total-form UMAT): the end value does not change.
   The total-form UMAT gives 0.8409 GPa with and without the trapping step.
-- **Path-dependent material** (legacy incremental UMAT): the end value changes, 0.8577 without vs
-  0.7803 GPa with the trapping step.
+- **Legacy incremental UMAT:** the recorded end value changes, 0.8577 without vs
+  0.7803 GPa with the trapping step. These outputs establish a setup-dependent discrepancy,
+  not its cause. The initial-stress/load balancing, stored state, strain history and increment
+  refinement must be checked before attributing it to intrinsic material path dependence.
 
 Open question for reviewers: we did not find this release behaviour stated explicitly in the Abaqus
 documentation of `*Initial Conditions, type=STRESS`. Pointers are welcome.
